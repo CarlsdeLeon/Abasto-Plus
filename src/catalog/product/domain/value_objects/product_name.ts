@@ -4,6 +4,6 @@ export class ProductName extends StringValueObject {
     super(value_object);
   }
   public verifyLength(): boolean {
-    return this.value_object.length > 4;
+    return this.value_object.length > 10;
   }
 }
