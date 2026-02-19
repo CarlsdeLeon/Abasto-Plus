@@ -4,4 +4,7 @@ export class PresentationUnitOfMeasure extends EnumValueObject {
     const validUnits = ["kg", "g", "lb", "ml", "lt", "unit"];
     super(value_object, validUnits);
   }
+  public toString(): string {
+    return this.value_object;
+  }
 }

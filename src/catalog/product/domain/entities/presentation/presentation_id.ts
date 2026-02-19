@@ -3,4 +3,8 @@ export class PresentationId extends IdentifierValueObject {
   constructor(value_object: string, ) {
     super(value_object);
   }
+
+  public toString(): string {
+    return this.value_object;
+  }
 }

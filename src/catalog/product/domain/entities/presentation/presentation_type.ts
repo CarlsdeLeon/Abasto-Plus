@@ -4,4 +4,7 @@ export class PresentationType extends EnumValueObject {
     const validUnits = ["bag", "sack", "box", "can", "jar", "bottle"];
     super(value_object, validUnits);
   }
+  public toString(): string {
+    return this.value_object;
+  }
 }

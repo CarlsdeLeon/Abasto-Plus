@@ -3,4 +3,8 @@ export class PresentationNetQuantity extends IntValueObject {
   constructor(value_object: number) {
     super(value_object);
   }
+
+  public valueOf(): number {
+    return this.value_object;
+  }
 }

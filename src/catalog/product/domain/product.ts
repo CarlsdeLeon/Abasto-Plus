@@ -22,7 +22,13 @@ export class Product {
       new ProductId(id),
       new ProductName(name),
       new ProductBaseUnit(base_unit),
-      new Presentation(presentation.id, presentation.name, presentation.type, presentation.net_quantity, presentation.unit_of_measure),
+      Presentation.build( 
+        presentation.id,
+        presentation.name,
+        presentation.type,
+        presentation.net_quantity,
+        presentation.unit_of_measure
+      ),
     );
   
   }

@@ -6,4 +6,8 @@ export class PresentationName extends StringValueObject {
   public verifyLength(): boolean {
     return this.value_object.length > 10;
   }
+
+  public toString(): string {
+    return this.value_object;
+  }
 }
