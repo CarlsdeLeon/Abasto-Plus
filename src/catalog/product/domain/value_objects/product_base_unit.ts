@@ -4,4 +4,5 @@ export class ProductBaseUnit extends EnumValueObject {
     const validUnits = ["kg", "g", "lb", "ml", "lt", "unit"];
     super(value_object, validUnits);
   }
+  
 }

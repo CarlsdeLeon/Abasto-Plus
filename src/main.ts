@@ -1,17 +1,25 @@
+import express from "express";
 import dotenv from "dotenv";
 import { MongoConnection } from "./catalog/product/infrastructure/mongoConnection";
+import productRoutes from "./catalog/product/infrastructure/productRoutes";
+
+console.log("MAIN SE ESTÁ EJECUTANDO");
 
 dotenv.config();
 
-async function startApp() {
-  try {
-    const mongo = MongoConnection.getInstance();
-    await mongo.connect();
+const app = express();
+app.use(express.json()); // 🔥 IMPORTANTE
 
-    console.log("🚀 App running...");
-  } catch (error) {
-    console.error("Error starting app:", error);
-  }
+app.use("/api", productRoutes); // 🔥 IMPORTANTE
+
+const PORT = 3000;
+
+async function start() {
+  await MongoConnection.getInstance().connect();
+
+  app.listen(PORT, () => {
+    console.log(`App running on http://localhost:${PORT}`);
+  });
 }
 
-startApp();
+start();

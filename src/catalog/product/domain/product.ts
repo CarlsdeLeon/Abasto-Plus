@@ -12,6 +12,15 @@ export class Product {
     
   }
 
+  public toPrimitives() {
+    return {
+      id: this.id.value_object,
+      name: this.name.value_object,
+      base_unit: this.base_unit.value_object,
+      presentation: this.presentation.toPrimitives()
+    };
+  }
+
   public static build(
     id: string,
     name: string,

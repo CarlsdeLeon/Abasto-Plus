@@ -15,6 +15,16 @@ export class Presentation extends ArrayValueObject<{id: string, name: string, ty
     super([{id: id.toString(), name: name.toString(), type: type.toString(), net_quantity: net_quantity.valueOf(), unit_of_measure: unit_of_measure.toString()}]);
   }
 
+  public toPrimitives() {
+    return {
+      id: this.id.value_object,
+      name: this.name.value_object,
+      type: this.type,
+      net_quantity: this.net_quantity,
+      unit_of_measure: this.unit_of_measure
+    };
+  }
+
   public static build(
     id: string,
     name: string,
