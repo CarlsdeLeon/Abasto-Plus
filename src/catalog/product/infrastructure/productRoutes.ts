@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { Product } from "../domain/product";
-import { ProductRepository } from "./productRepository";
+import { SaveProduct } from "../application/use-cases/save-product";
+import { MongoProductRepository } from "./mongoProductRepository";
 
 const router = Router();
-const repository = new ProductRepository();
+const repository = new MongoProductRepository();
 
 router.get("/test", (req, res) => {
   console.log("ENTRÓ A TEST");
@@ -20,7 +21,7 @@ router.post("/products", async (req, res) => {
       req.body.presentation
     );
 
-    await repository.save(product);
+    await new SaveProduct(repository).execute(product);
 
     res.status(201).json({ message: "Product saved successfully" });
 
