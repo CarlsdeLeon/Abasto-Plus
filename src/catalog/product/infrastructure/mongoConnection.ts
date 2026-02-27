@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+
 export class MongoConnection {
   private static instance: MongoConnection;
   private isConnected = false;
@@ -20,9 +21,8 @@ export class MongoConnection {
     }
 
     try {
-      const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/AbastoPlus';
       
-      await mongoose.connect(mongoUri);
+      await mongoose.connect(process.env.MONGO_URL as string);
       this.isConnected = true;
       console.log('MongoDB connected successfully');
       

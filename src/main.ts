@@ -8,9 +8,9 @@ console.log("MAIN SE ESTÁ EJECUTANDO");
 dotenv.config();
 
 const app = express();
-app.use(express.json()); // 🔥 IMPORTANTE
+app.use(express.json()); 
 
-app.use("/api", productRoutes); // 🔥 IMPORTANTE
+app.use("/api", productRoutes); 
 
 const PORT = 3000;
 
