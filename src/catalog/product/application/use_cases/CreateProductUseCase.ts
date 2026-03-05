@@ -1,7 +1,7 @@
 import { injectable, inject } from "inversify";
-import { Product } from "../domain/product";
-import { ProductRepository } from "../application/productRepository";
-import { TYPES } from "../../../../types";
+import { Product } from "../../domain/product";
+import { ProductRepository } from "../productRepository";
+import { TYPES } from "../../../../../types";
 
 @injectable()
 export class CreateProductUseCase {

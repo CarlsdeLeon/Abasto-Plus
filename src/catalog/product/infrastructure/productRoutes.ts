@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { container } from "./inversify.config";
 import { TYPES } from "../../../../types";
-import { CreateProductUseCase } from "../application/CreateProductUseCase";
+import { CreateProductUseCase } from "../application/use_cases/CreateProductUseCase";
 import { MongoProductRepository } from "./mongoProductRepository";
 
 const router = Router();

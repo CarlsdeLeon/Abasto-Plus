@@ -3,7 +3,7 @@ import { Container } from "inversify";
 import { TYPES } from "../../../../types";
 import { ProductRepository } from "../application/productRepository";
 import { MongoProductRepository } from "./mongoProductRepository";
-import { CreateProductUseCase } from "../application/CreateProductUseCase";
+import { CreateProductUseCase } from "../application/use_cases/CreateProductUseCase";
 import { MongoConnection } from "./mongoConnection";
 
 const container = new Container();
