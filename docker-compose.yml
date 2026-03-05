@@ -4,16 +4,18 @@ services:
   mongo:
     image: mongo:7
     container_name: abasto-mongo
-    restart: always
+    restart: unless-stopped
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
 
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: abasto-api
-    restart: always
+    restart: unless-stopped
     ports:
       - "3000:3000"
     env_file:
@@ -22,7 +24,7 @@ services:
       - mongo
     volumes:
       - .:/app
-      - /app/node_modules
+    working_dir: /app
     command: npm run dev
 
 volumes:
