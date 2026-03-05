@@ -1,9 +1,12 @@
+import { injectable } from "inversify";
+import { ProductModel } from "./productModel";
 import { Product } from "../domain/product";
 import { ProductRepository } from "../application/productRepository";
 
-class MongoProductRepository implements ProductRepository {
+@injectable()
+export class MongoProductRepository implements ProductRepository {
   async save(data: Product): Promise<void> {
-    // Implementation for saving a product to MongoDB
+    //
   }
 
   async findById(id: string): Promise<any> {
@@ -11,7 +14,7 @@ class MongoProductRepository implements ProductRepository {
   }
 
   async findAll(): Promise<any[]> {
-    return []; 
+    return await ProductModel.find();
   }
 
   async deleteById(id: string): Promise<void> {

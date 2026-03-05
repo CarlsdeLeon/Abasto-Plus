@@ -1,18 +1,11 @@
 import mongoose from 'mongoose';
+import { injectable } from 'inversify';
 
-
+@injectable()
 export class MongoConnection {
-  private static instance: MongoConnection;
   private isConnected = false;
 
-  private constructor() {}
-
-  static getInstance(): MongoConnection {
-    if (!MongoConnection.instance) {
-      MongoConnection.instance = new MongoConnection();
-    }
-    return MongoConnection.instance;
-  }
+  constructor() {}
 
   async connect(): Promise<void> {
     if (this.isConnected) {
@@ -21,7 +14,6 @@ export class MongoConnection {
     }
 
     try {
-      
       await mongoose.connect(process.env.MONGO_URL as string);
       this.isConnected = true;
       console.log('MongoDB connected successfully');
