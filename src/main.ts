@@ -1,9 +1,10 @@
-import "reflect-metadata"; 
+// main.ts
+import "reflect-metadata";
 import express from "express";
 import dotenv from "dotenv";
 import { container } from "./catalog/product/infrastructure/inversify.config";
-import { TYPES } from "./../types";
-import { MongoConnection } from "./catalog/product/infrastructure/mongoConnection";
+import { TYPES } from "../types";
+import { DatabaseConnection } from "./catalog/product/infrastructure/database-connection.interface";
 import productRoutes from "./catalog/product/infrastructure/productRoutes";
 
 console.log("🚀 EL ARCHIVO PRINCIPAL SE ESTÁ EJECUTANDO");
@@ -19,9 +20,9 @@ const PORT = process.env.PORT || 3000;
 
 async function start() {
   try {
-    // Obtener la conexión desde el contenedor de Inversify
-    const mongoConnection = container.get<MongoConnection>(TYPES.MongoConnection);
-    await mongoConnection.connect();
+    // Obtén la conexión a través de la interfaz, no de la implementación concreta
+    const databaseConnection = container.get<DatabaseConnection>(TYPES.DatabaseConnection);
+    await databaseConnection.connect();
     
     app.listen(PORT, () => {
       console.log(`✅ Servidor escuchando en http://localhost:${PORT}`);
@@ -43,8 +44,8 @@ start();
 process.on('SIGINT', async () => {
   console.log('\n🛑 Deteniendo servidor...');
   try {
-    const mongoConnection = container.get<MongoConnection>(TYPES.MongoConnection);
-    await mongoConnection.disconnect();
+    const databaseConnection = container.get<DatabaseConnection>(TYPES.DatabaseConnection);
+    await databaseConnection.disconnect();
     console.log('👋 Conexión a MongoDB cerrada');
     process.exit(0);
   } catch (error) {

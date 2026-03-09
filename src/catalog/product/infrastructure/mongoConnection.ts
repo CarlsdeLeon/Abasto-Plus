@@ -1,8 +1,10 @@
+// mongoConnection.ts
 import mongoose from 'mongoose';
 import { injectable } from 'inversify';
+import { DatabaseConnection } from './database-connection.interface';
 
 @injectable()
-export class MongoConnection {
+export class MongoConnection implements DatabaseConnection {
   private isConnected = false;
 
   constructor() {}

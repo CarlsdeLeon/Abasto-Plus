@@ -1,5 +1,10 @@
+// types.ts
 export const TYPES = {
+  // Mantén tus tipos existentes
+  MongoConnection: Symbol.for("MongoConnection"),
   ProductRepository: Symbol.for("ProductRepository"),
   CreateProductUseCase: Symbol.for("CreateProductUseCase"),
-  MongoConnection: Symbol.for("MongoConnection"),
+  
+  // Añade este nuevo tipo para la abstracción
+  DatabaseConnection: Symbol.for("DatabaseConnection"),
 };
