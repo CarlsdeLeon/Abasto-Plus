@@ -7,4 +7,5 @@ export const TYPES = {
   
   // Añade este nuevo tipo para la abstracción
   DatabaseConnection: Symbol.for("DatabaseConnection"),
+  TranslationService: Symbol.for("GoogleTranslationService"),
 };

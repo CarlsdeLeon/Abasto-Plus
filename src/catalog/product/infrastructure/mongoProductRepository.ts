@@ -6,7 +6,9 @@ import { ProductRepository } from "../application/productRepository";
 @injectable()
 export class MongoProductRepository implements ProductRepository {
   async save(data: Product): Promise<void> {
-    //
+    // 
+    await ProductModel.create(data.toPrimitives() as any);
+    console.log("Saving product to MongoDB:", data);
   }
 
   async findById(id: string): Promise<any> {

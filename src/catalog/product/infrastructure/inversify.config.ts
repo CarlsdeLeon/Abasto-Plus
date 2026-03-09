@@ -7,6 +7,8 @@ import { ProductRepository } from "../application/productRepository";
 import { MongoProductRepository } from "./mongoProductRepository";
 import { CreateProductUseCase } from "../application/use_cases/CreateProductUseCase";
 import { MongoConnection } from "./mongoConnection";
+import { GoogleTranslationService } from "./googleTranslationService";
+import { TranslationService } from "../application/ports/translationService";
 
 const container = new Container();
 
@@ -25,5 +27,8 @@ container.bind<ProductRepository>(TYPES.ProductRepository)
 
 container.bind<CreateProductUseCase>(TYPES.CreateProductUseCase)
   .to(CreateProductUseCase);
+
+container.bind<TranslationService>(TYPES.TranslationService)
+  .to(GoogleTranslationService);
 
 export { container };
