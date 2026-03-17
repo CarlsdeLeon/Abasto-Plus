@@ -8,4 +8,10 @@ export const TYPES = {
   // Añade este nuevo tipo para la abstracción
   DatabaseConnection: Symbol.for("DatabaseConnection"),
   TranslationService: Symbol.for("GoogleTranslationService"),
+
+  // Nuevos tipos para EventBus
+  EventBus: Symbol.for("EventBus"),
+  NotifyBus: Symbol.for("NotifyBus"),
+  NotifyCustomers: Symbol.for("NotifyCustomers"),
+  ProductEventConsumer: Symbol.for("ProductEventConsumer"),
 };
