@@ -18,5 +18,9 @@ export class InMemoryEventBus implements EventBus {
         return events;
     }
 
+    getSubscribers(eventName: string): Function[] {
+        return this.handlers.get(eventName) || [];
+    }
+
 
 }
