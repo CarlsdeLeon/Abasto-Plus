@@ -1,8 +1,9 @@
 import { EventBus } from './interfaces/EventBus';
 import { Event } from './events/Event';
+import { EventHandler } from './interfaces/EventHandler';
 
 export class InMemoryEventBus implements EventBus {
-    private handlers: Map<string, Function[]> = new Map();
+    private handlers: Map<string, EventHandler[]> = new Map();
     private eventQueue: Event[] = [];
 
     publish(event: Event): void {
@@ -18,7 +19,7 @@ export class InMemoryEventBus implements EventBus {
         return events;
     }
 
-    getSubscribers(eventName: string): Function[] {
+    getSubscribers(eventName: string): EventHandler[] {
         return this.handlers.get(eventName) || [];
     }
 
