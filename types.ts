@@ -10,8 +10,5 @@ export const TYPES = {
   TranslationService: Symbol.for("GoogleTranslationService"),
 
   // Nuevos tipos para EventBus
-  EventBus: Symbol.for("EventBus"),
-  NotifyBus: Symbol.for("NotifyBus"),
-  NotifyCustomers: Symbol.for("NotifyCustomers"),
-  ProductEventConsumer: Symbol.for("ProductEventConsumer"),
+  EventBus: Symbol.for("InMemoryEventBus"),
 };

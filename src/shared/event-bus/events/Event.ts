@@ -1,11 +1,4 @@
 export class Event {
-    constructor(private name: string, private payload: any) {}
+    constructor(public readonly name: string, public readonly payload: any) {}
 
-    getName(): string {
-        return this.name;
-    }
-
-    getData(): any {
-        return this.payload;
-    }
 }

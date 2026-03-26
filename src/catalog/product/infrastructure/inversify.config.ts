@@ -9,6 +9,8 @@ import { CreateProductUseCase } from "../application/use_cases/CreateProductUseC
 import { MongoConnection } from "./mongoConnection";
 import { GoogleTranslationService } from "./googleTranslationService";
 import { TranslationService } from "../application/ports/translationService";
+import { EventBus } from "../../../shared/event-bus/interfaces/EventBus";
+import { InMemoryEventBus } from "../../../shared/event-bus/InMemoryEventBus";
 
 const container = new Container();
 
@@ -30,5 +32,9 @@ container.bind<CreateProductUseCase>(TYPES.CreateProductUseCase)
 
 container.bind<TranslationService>(TYPES.TranslationService)
   .to(GoogleTranslationService);
+
+container.bind<EventBus>(TYPES.EventBus)
+  .to(InMemoryEventBus)
+  .inSingletonScope();
 
 export { container };

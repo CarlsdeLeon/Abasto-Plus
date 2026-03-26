@@ -6,6 +6,7 @@ import { container } from "./catalog/product/infrastructure/inversify.config";
 import { TYPES } from "../types";
 import { DatabaseConnection } from "./catalog/product/infrastructure/database-connection.interface";
 import productRoutes from "./catalog/product/infrastructure/productRoutes";
+import { MainConsumer } from "./mainConsumer";
 
 console.log("🚀 EL ARCHIVO PRINCIPAL SE ESTÁ EJECUTANDO");
 
@@ -17,6 +18,8 @@ app.use(express.json());
 app.use("/api", productRoutes);
 
 const PORT = process.env.PORT || 3000;
+
+const mainConsumer = new MainConsumer(container.get(TYPES.EventBus));
 
 async function start() {
   try {
@@ -31,6 +34,8 @@ async function start() {
       console.log(`   GET  http://localhost:${PORT}/api/products`);
       console.log(`   GET  http://localhost:${PORT}/api/test`);
     });
+
+
   } catch (error) {
     console.error("❌ Error iniciando el servidor:", error);
     process.exit(1);
@@ -39,6 +44,10 @@ async function start() {
 
 // Iniciar la aplicación
 start();
+
+setInterval(() => {
+  mainConsumer.consume();
+}, 30000); 
 
 // Gestionar cierre del servidor de forma segura
 process.on('SIGINT', async () => {

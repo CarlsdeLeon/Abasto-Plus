@@ -38,4 +38,15 @@ router.get("/products", async (req, res) => {
   }
 });
 
+router.delete("/products", async (req, res) => {
+  try {
+    const repository = container.get<MongoProductRepository>(TYPES.ProductRepository);
+    await repository.deleteById(req.body.id);
+    res.json({ message: "Product deleted successfully" });
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
 export default router;

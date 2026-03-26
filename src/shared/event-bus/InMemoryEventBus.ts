@@ -1,27 +1,53 @@
 import { EventBus } from './interfaces/EventBus';
 import { Event } from './events/Event';
-import { EventHandler } from './interfaces/EventHandler';
+import { injectable } from 'inversify';
 
+@injectable()
 export class InMemoryEventBus implements EventBus {
-    private handlers: Map<string, EventHandler[]> = new Map();
+    static instance: InMemoryEventBus;
     private eventQueue: Event[] = [];
+    private _subscribers: { [eventName: string]: any[] } = {
+            '*': []
+    };
 
-    publish(event: Event): void {
-        const eventName = event.getName();
-        console.log(`[InMemoryEventBus] Publicando evento: ${eventName}`);
-        
-        this.eventQueue.push(event);
+    constructor() {
+        if (!InMemoryEventBus.instance) {
+            InMemoryEventBus.instance = this;
+        }
+        return InMemoryEventBus.instance;
+    }
+
+    publish(events: Event[]): void {
+        events.forEach(event => {
+            const eventName = event.name;
+            console.log(`[InMemoryEventBus] Publicando evento: ${eventName}`);
+            this.eventQueue.push(event);
+        });
     }
     
-    consume(eventName: string, callback: (data: any) => void): Event[] {
-        const events = this.eventQueue.filter(event => event.getName() === eventName);
-        //events.forEach(event => callback(event.getData()));
+    consume(event_name: string|'*', limit: number): Event[] {
+        let events: Event[];
+        if (event_name === '*') {
+            events = this.eventQueue;
+        } else {
+            events = this.eventQueue.filter(event => event_name.includes(event.name));    
+        }
+        events = events.slice(0, limit);
+        this.eventQueue = this.eventQueue.filter(event => !event_name.includes(event.name));
+
         return events;
     }
 
-    getSubscribers(eventName: string): EventHandler[] {
-        return this.handlers.get(eventName) || [];
+    subscribe(eventName: string, handler: any): void {
+        if (!this._subscribers[eventName]) {
+            this._subscribers[eventName] = [];
+        }
+        this._subscribers['*']?.push(handler);
+        this._subscribers[eventName].push(handler);
     }
 
+    getSubscribers(eventName: string): any[] {
+        return this._subscribers[eventName] || [];
+    }
 
 }

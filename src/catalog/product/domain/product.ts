@@ -4,10 +4,10 @@ import { ProductName } from "./value_objects/product_name";
 import { Presentation } from "./entities/presentation";
 export class Product {
   private constructor(  
-    private readonly id: ProductId,
-    private readonly name: ProductName,
-    private readonly base_unit: ProductBaseUnit,
-    private readonly presentation: Presentation,
+    private id: ProductId,
+    private _name: ProductName,
+    private base_unit: ProductBaseUnit,
+    private presentation: Presentation,
   ) {
     
   }
@@ -15,10 +15,33 @@ export class Product {
   public toPrimitives() {
     return {
       id: this.id.value_object,
-      name: this.name.value_object,
+      name: this._name.value_object,
       base_unit: this.base_unit.value_object,
       presentation: this.presentation.toPrimitives()
     };
+  }
+
+  public static fromPrimitives(data: any): Product {
+    return new Product(
+      new ProductId(data.id),
+      new ProductName(data.name),
+      new ProductBaseUnit(data.base_unit),
+      Presentation.build(
+        data.presentation.id,
+        data.presentation.name,
+        data.presentation.type,
+        data.presentation.net_quantity,
+        data.presentation.unit_of_measure
+      )
+    );
+  }
+
+  get name(): string {
+    return this._name.value_object;
+  }
+
+  set name(newName: string) {
+    this._name = new ProductName(newName);
   }
 
   public static build(
